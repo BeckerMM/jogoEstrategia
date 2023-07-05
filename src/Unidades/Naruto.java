@@ -6,11 +6,6 @@ public class Naruto extends Unidade {
         super(50, 75, 10, cor);
     }
 
-    public void habilidadeJutsoDaVida(){
-        this.setVida(this.getVida()+5);
-        this.setDefesa(this.getDefesa()+2);
-    }
-
     @Override
     boolean verificarvantagem(Unidade unidadeAdversaria) {
 
@@ -18,6 +13,18 @@ public class Naruto extends Unidade {
             return true;
         }
         return false;
+    }
+
+    @Override
+    boolean ataqueEspecial() {
+        if (this.getMana()>=5){
+            this.setVida(this.getVida()+5);
+            this.setDefesa(this.getDefesa()+2);
+            this.setMana(this.getMana()-5);
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

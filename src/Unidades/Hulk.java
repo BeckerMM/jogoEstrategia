@@ -9,15 +9,6 @@ public class Hulk extends Unidade {
 
     }
 
-    public boolean habilidadeFuriaVerde( int numeroRodada){
-        if(this.getVida()>=750 && numeroRodada >=5){
-            this.setAtaque(this.getAtaque()+5);
-            return true;
-        }else{
-            return false;
-        }
-
-    }
     @Override
     boolean verificarvantagem(Unidade unidadeAdversaria) {
 
@@ -25,6 +16,18 @@ public class Hulk extends Unidade {
             return true;
         }
         return false;
+    }
+
+    @Override
+    boolean ataqueEspecial() {
+        if(this.getVida()>=750 && this.getMana() >=20){
+            this.setAtaque(this.getAtaque()+5);
+            this.setMana(this.getMana()-20);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

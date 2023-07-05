@@ -7,6 +7,7 @@ public abstract class Unidade {
     private double ataque;
     private double defesa;
     private String cor;
+    private double mana;
 
     // Construtor Super
     public Unidade(double vida, double ataque, double defesa, String cor) {
@@ -14,6 +15,7 @@ public abstract class Unidade {
         this.ataque= ataque;
         this.defesa= defesa;
         this.cor = cor;
+        this.mana = 100;
     }
 
     //Implementação do metódo de ataque, onde caso a unidade Adversária tenha fraqueza em relação a unidade que chamou, a mesma irá perder 25% a mais de vida
@@ -31,6 +33,9 @@ public abstract class Unidade {
 
     //Metódo abstrato para verificar se a unidade Aversária possui desvantagem em relação a unidade que chamou a função
     abstract boolean verificarvantagem(Unidade unidadeAdversaria);
+
+    abstract boolean ataqueEspecial();
+
 
     //Getters e Setters
     public double getVida() {
@@ -61,9 +66,11 @@ public abstract class Unidade {
         return cor;
     }
 
-    public void setCor(String cor) {
-        this.cor = cor;
+    public double getMana() {
+        return mana;
     }
 
-
+    public void setMana(double mana) {
+        this.mana = mana;
+    }
 }
