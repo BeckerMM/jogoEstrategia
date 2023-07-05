@@ -40,7 +40,7 @@ public class Main {
             System.out.println("Digite o nome do jogador " + (i + 1) + ":");
             nome = sc.next();
             if (i==0){
-
+                cor = "Branco"
             }
 
         }
