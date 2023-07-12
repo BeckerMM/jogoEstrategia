@@ -32,9 +32,9 @@ public abstract class Unidade {
     }
 
     //Metódo abstrato para verificar se a unidade Aversária possui desvantagem em relação a unidade que chamou a função
-    abstract boolean verificarvantagem(Unidade unidadeAdversaria);
+     abstract public boolean verificarvantagem(Unidade unidadeAdversaria);
 
-    abstract boolean ataqueEspecial();
+    abstract public boolean ataqueEspecial();
 
 
     //Getters e Setters

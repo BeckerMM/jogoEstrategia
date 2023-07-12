@@ -8,7 +8,7 @@ public class OptimusPrime extends Unidade {
 
 
     @Override
-    boolean verificarvantagem(Unidade unidadeAdversaria) {
+    public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
         if (unidadeAdversaria instanceof Naruto) {
             return true;
@@ -17,7 +17,7 @@ public class OptimusPrime extends Unidade {
     }
 
     @Override
-    boolean ataqueEspecial() {
+    public boolean ataqueEspecial() {
         if (this.getMana() >= 10) {
             this.setVida(this.getVida() + 10);
             this.setDefesa(this.getDefesa() + 1);
@@ -26,5 +26,15 @@ public class OptimusPrime extends Unidade {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Life: "+ this.getVida() +
+                        " Mana: "+getMana()+
+                        " Ataque: "+getAtaque()+
+                        " cor: "+ getCor()+
+                        " 🤖";
     }
 }

@@ -13,7 +13,7 @@ public class Batman extends Unidade {
     }
 
     @Override
-    boolean verificarvantagem(Unidade unidadeAdversaria) {
+    public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
         if (unidadeAdversaria instanceof OptimusPrime) {
             return true;
@@ -22,7 +22,7 @@ public class Batman extends Unidade {
     }
 
     @Override
-    boolean ataqueEspecial() {
+    public boolean ataqueEspecial() {
         if(this.getMana()>=20){
             this.setVida(this.getVida()+2);
             this.setAtaque(this.getAtaque()+10);
@@ -34,4 +34,12 @@ public class Batman extends Unidade {
         }
     }
 
+    @Override
+    public String toString() {
+        return   "Life: "+ this.getVida() +
+                " Mana: "+getMana()+
+                " Ataque: "+getAtaque()+
+                " cor: "+ getCor()+
+                " 🦇";
+    }
 }

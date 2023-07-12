@@ -7,7 +7,7 @@ public class Naruto extends Unidade {
     }
 
     @Override
-    boolean verificarvantagem(Unidade unidadeAdversaria) {
+    public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
         if (unidadeAdversaria instanceof Dragao) {
             return true;
@@ -16,7 +16,7 @@ public class Naruto extends Unidade {
     }
 
     @Override
-    boolean ataqueEspecial() {
+    public boolean ataqueEspecial() {
         if (this.getMana()>=5){
             this.setVida(this.getVida()+5);
             this.setDefesa(this.getDefesa()+2);
@@ -27,4 +27,12 @@ public class Naruto extends Unidade {
         }
     }
 
+    @Override
+    public String toString() {
+        return   "Life: "+ this.getVida() +
+                " Mana: "+getMana()+
+                " Ataque: "+getAtaque()+
+                " cor: "+ getCor()+
+                " 👨";
+    }
 }

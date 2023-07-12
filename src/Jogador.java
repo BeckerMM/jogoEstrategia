@@ -3,11 +3,11 @@ import Unidades.Unidade;
 import java.util.ArrayList;
 
 public class Jogador {
-    private Unidade[] listaDeUnidades = new Unidade[4];
+    private Unidade[] listaDeUnidades;
     private String cor;
     private String nome;
 
-    public Jogador(Unidade[] listaDeUnidades, String cor, String nome) {
+    public Jogador(Unidade[] listaDeUnidades, String cor, String nome){
         this.listaDeUnidades = listaDeUnidades;
         this.cor = cor;
         this.nome = nome;

@@ -10,7 +10,7 @@ public class Hulk extends Unidade {
     }
 
     @Override
-    boolean verificarvantagem(Unidade unidadeAdversaria) {
+    public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
         if (unidadeAdversaria instanceof Batman){
             return true;
@@ -19,7 +19,7 @@ public class Hulk extends Unidade {
     }
 
     @Override
-    boolean ataqueEspecial() {
+   public boolean ataqueEspecial() {
         if(this.getVida()>=750 && this.getMana() >=20){
             this.setAtaque(this.getAtaque()+5);
             this.setMana(this.getMana()-20);
@@ -30,4 +30,12 @@ public class Hulk extends Unidade {
 
     }
 
+    @Override
+    public String toString() {
+        return   "Life: "+ this.getVida() +
+                " Mana: "+getMana()+
+                " Ataque: "+getAtaque()+
+                " cor: "+ getCor()+
+                " 💪";
+    }
 }

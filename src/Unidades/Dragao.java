@@ -9,7 +9,7 @@ public class Dragao extends Unidade {
 
 
     @Override
-    boolean verificarvantagem(Unidade unidadeAdversaria) {
+   public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
         if (unidadeAdversaria instanceof Hulk) {
             return true;
@@ -18,7 +18,7 @@ public class Dragao extends Unidade {
     }
 
     @Override
-    boolean ataqueEspecial() {
+    public boolean ataqueEspecial() {
         if (this.getMana() >= 25) {
             this.setAtaque(this.getAtaque() + 10);
             this.setDefesa(this.getDefesa() + 10);
@@ -30,5 +30,12 @@ public class Dragao extends Unidade {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return   "Life: "+ this.getVida() +
+                " Mana: "+getMana()+
+                " Ataque: "+getAtaque()+
+                " cor: "+ getCor()+
+                " 🐉";
+    }
 }
