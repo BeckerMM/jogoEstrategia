@@ -11,53 +11,82 @@ public class CampoDeBatalha {
         this.listaDeJogadores = listaDeJogadores;
     }
 
-    public void atacar(int jogador,int unidadeDeAtaque, int unidadeDeDefesa){
+    public boolean atacar(int jogador, int unidadeDeAtaque, int unidadeDeDefesa) {
         Unidade atacada;
+        Unidade ataque;
         Jogador jogadorAtaque;
-    if(jogador == 1){
-        atacada = listaDeJogadores[1].getListaDeUnidades()[unidadeDeDefesa];
-        jogadorAtaque=
-                listaDeJogadores[1];
-    }else{
-        atacada = listaDeJogadores[0].getListaDeUnidades()[unidadeDeDefesa];
-       jogadorAtaque=
-                listaDeJogadores[0];
+        if (jogador == 1) {
+            atacada = listaDeJogadores[0].getListaDeUnidades()[unidadeDeDefesa];
+            jogadorAtaque = listaDeJogadores[1];
+            ataque = jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque];
+        } else {
+            atacada = listaDeJogadores[1].getListaDeUnidades()[unidadeDeDefesa];
+            jogadorAtaque = listaDeJogadores[0];
+            ataque = jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque];
+        }
+        if (atacada != null && ataque != null) {
+            jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque].
+                    atacar(atacada,
+                            jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque].verificarvantagem(atacada));
+            return true;
+        } else {
+            return false;
+        }
     }
-                jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque].
-                        atacar(atacada,
-                                jogadorAtaque.getListaDeUnidades()[unidadeDeAtaque].verificarvantagem(atacada));
 
+    public boolean verificarUnidade(int unidadeDeAtaque, int numeroDoJogador) {
+        if (listaDeJogadores[numeroDoJogador].getListaDeUnidades()[unidadeDeAtaque] == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void habilidaEspecial(int jogador,int unidadeDeataque){
+    public void habilidaEspecial(int jogador, int unidadeDeataque) {
         listaDeJogadores[jogador].getListaDeUnidades()[unidadeDeataque].ataqueEspecial();
     }
 
-    public Jogador verificarVencedor(){
-       int contadorJogador1 = 0;
-       int contadorJogador2 = 0;
+    public void verificarVidaDaUnidade() {
+        for (int i = 0; i < 2; i++) {
+            int contador = 0;
+            for (Unidade unidade : listaDeJogadores[i].getListaDeUnidades()) {
+                if (unidade != null) {
+                    if (unidade.getVida() <= 0) {
+                        listaDeJogadores[i].getListaDeUnidades()[contador] = null;
+                    }
 
-        for (Unidade unidade: listaDeJogadores[0].getListaDeUnidades()) {
-            if(unidade.getVida()==0){
+                }
+                contador++;
+            }
+        }
+
+    }
+
+
+    public Jogador verificarVencedor() {
+        int contadorJogador1 = 0;
+        int contadorJogador2 = 0;
+
+        for (Unidade unidade : listaDeJogadores[0].getListaDeUnidades()) {
+            if (unidade == null) {
                 contadorJogador1++;
             }
         }
-        for (Unidade unidade: listaDeJogadores[1].getListaDeUnidades()) {
-            if(unidade.getVida()==0){
+        for (Unidade unidade : listaDeJogadores[1].getListaDeUnidades()) {
+            if (unidade == null) {
                 contadorJogador2++;
             }
         }
-        if (contadorJogador1== 3){
+        if (contadorJogador1 == 3) {
             vencedor = listaDeJogadores[1].getNome();
             return listaDeJogadores[1];
-        }else if (contadorJogador2 == 3) {
+        } else if (contadorJogador2 == 3) {
             vencedor = listaDeJogadores[0].getNome();
             return listaDeJogadores[0];
-        }else{
+        } else {
             return null;
         }
     }
-
 
 
     public Jogador[] getListaDeJogadores() {
@@ -78,12 +107,12 @@ public class CampoDeBatalha {
 
     @Override
     public String toString() {
-        return "Jogador 1 \n0-"+listaDeJogadores[0].getListaDeUnidades()[0] +
-                "\n 1-" + listaDeJogadores[0].getListaDeUnidades()[1]+
-                "\n 2-" + listaDeJogadores[0].getListaDeUnidades()[2]+
+        return "Jogador 1 \n0-" + listaDeJogadores[0].getListaDeUnidades()[0] +
+                "\n 1-" + listaDeJogadores[0].getListaDeUnidades()[1] +
+                "\n 2-" + listaDeJogadores[0].getListaDeUnidades()[2] +
 
-                "\n\n Jogador 2 \n0-"+ listaDeJogadores[1].getListaDeUnidades()[0]+
-                "\n 1-"+ listaDeJogadores[1].getListaDeUnidades()[1] +
+                "\n\n Jogador 2 \n0-" + listaDeJogadores[1].getListaDeUnidades()[0] +
+                "\n 1-" + listaDeJogadores[1].getListaDeUnidades()[1] +
                 "\n 2-" + listaDeJogadores[1].getListaDeUnidades()[2];
 
     }

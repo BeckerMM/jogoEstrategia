@@ -8,12 +8,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        menuInicial();
+        do {
+
+        }while(!menuInicial());
 
 
     }
 
-    private static void menuInicial() {
+    private static boolean menuInicial() {
 
         System.out.println("""
                 1- Iniciar uma partida
@@ -21,18 +23,21 @@ public class Main {
                 3- Sair""");
         int decisao = sc.nextInt();
         switch (decisao) {
-            case 1:
-                iniciarUmaPartida();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
+            case 1 -> iniciarUmaPartida();
+            case 2 -> regrasDoJogo();
+            case 3 -> {
+                return logout();
+            }
+            default -> System.out.println("Valor inválido!!");
         }
 
 
+        return false;
     }
 
+    private static boolean logout(){
+        return true;
+    }
     private static void iniciarUmaPartida() {
         Jogador listaDeJogadores[] = new Jogador[2];
 
@@ -110,12 +115,21 @@ public class Main {
             } else {
                 acaoAtaque(2);
             }
+            campodeBatalha.verificarVidaDaUnidade();
             cont++;
             for (Unidade unidade:campodeBatalha.getListaDeJogadores()[0].getListaDeUnidades()) {
-                unidade.setMana(unidade.getMana()+10);
+                if (unidade == null) {
+
+                }else if(unidade.getMana()<=90){
+                    unidade.setMana(unidade.getMana() + 10);
+                }
             }
             for (Unidade unidade:campodeBatalha.getListaDeJogadores()[1].getListaDeUnidades()) {
-                unidade.setMana(unidade.getMana()+10);
+                if (unidade == null){
+
+                }else if (unidade.getMana()<=90){
+                    unidade.setMana(unidade.getMana()+10);
+                }
             }
 
         } while (campodeBatalha.verificarVencedor()==null);
@@ -126,25 +140,68 @@ public class Main {
         int unidadeDeAtaque=0;
         int unidadeAtacada = 0;
         int decisao = 0;
-        System.out.println("Jogador "+numeroDoJogador+"\nEscolha sua unidade de ataque: ");
-        unidadeDeAtaque = sc.nextInt();
+        int contador=0;
+        do {
+            if(contador!=0) {
+                System.out.println("\nEscolha outra unidade!!");
+            }
+            System.out.println("Jogador "+numeroDoJogador+"\nEscolha sua unidade de ataque: ");
+            unidadeDeAtaque = sc.nextInt();
+            contador++;
+        }while(campodeBatalha.verificarUnidade(unidadeDeAtaque,(numeroDoJogador-1)));
+
         System.out.println("""
                         Escolha a ação:
                         1- Atacar
                         2- Habilidade Especial""");
         decisao = sc.nextInt();
-        if (decisao == 1){
-            System.out.println("Escolha a unidade para ser atacada:");
-            unidadeAtacada = sc.nextInt();
+        switch (decisao){
+            case 1:
+                int adversario=0;
+                int cont=0;
+                if (numeroDoJogador==1){
+                    adversario=1;
+                }else if (numeroDoJogador==2){
+                    adversario=0;
+                }
+                do {
+                    if(cont!=0) {
+                        System.out.println("\nEscolha outra unidade!!");
+                    }
+                    System.out.println("\nEscolha a unidade para ser atacada:");
+                    unidadeAtacada = sc.nextInt();
+                    cont++;
 
-            campodeBatalha.atacar((numeroDoJogador-1),unidadeDeAtaque,unidadeAtacada);
-        }else{
-            if(campodeBatalha.getListaDeJogadores()[numeroDoJogador-1].getListaDeUnidades()[unidadeAtacada].ataqueEspecial()){
+                }while(campodeBatalha.verificarUnidade(unidadeAtacada, (adversario)));
+
+                if(campodeBatalha.atacar((numeroDoJogador-1),unidadeDeAtaque,unidadeAtacada)){
+                System.out.println("\nAtaque realizado com sucesso!!");
+            }else{
+                System.out.println("\nUnidade Morta!!");
+            }
+            break;
+            case 2:
+            if(campodeBatalha.getListaDeJogadores()[numeroDoJogador-1].getListaDeUnidades()[unidadeDeAtaque].ataqueEspecial()){
                 System.out.println("\nHabilidade utilizada com sucesso!");
             }else{
                 System.out.println("\nMana baixa!");
             }
+            break;
+            default:
+                System.out.println("\nNúmero inválido!!");
         }
+    }
+
+    private static void regrasDoJogo(){
+        System.out.println("""
+                --REGRAS DO JOGO--
+                
+                1- O campo de batalha será composto por 2 jogadores;
+                2- Cada Jogador poderá escolher 3 unidades;
+                3- O jogador 1 começará atacando;
+                4- Cada unidade possui duas ações atacar e sua Habilidade Especial;
+                5- O jogador vencedor será aquele que conseguir derrotar todas as unidades do seu adversário    
+                """);
     }
 
 
