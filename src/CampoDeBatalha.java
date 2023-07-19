@@ -107,11 +107,11 @@ public class CampoDeBatalha {
 
     @Override
     public String toString() {
-        return "Jogador 1 \n0-" + listaDeJogadores[0].getListaDeUnidades()[0] +
+        return "Jogador 1 \n 0-" + listaDeJogadores[0].getListaDeUnidades()[0] +
                 "\n 1-" + listaDeJogadores[0].getListaDeUnidades()[1] +
                 "\n 2-" + listaDeJogadores[0].getListaDeUnidades()[2] +
 
-                "\n\n Jogador 2 \n0-" + listaDeJogadores[1].getListaDeUnidades()[0] +
+                "\n\nJogador 2 \n 0-" + listaDeJogadores[1].getListaDeUnidades()[0] +
                 "\n 1-" + listaDeJogadores[1].getListaDeUnidades()[1] +
                 "\n 2-" + listaDeJogadores[1].getListaDeUnidades()[2];
 
