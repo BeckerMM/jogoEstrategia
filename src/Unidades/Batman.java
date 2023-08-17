@@ -15,10 +15,7 @@ public class Batman extends Unidade {
     @Override
     public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
-        if (unidadeAdversaria instanceof OptimusPrime) {
-            return true;
-        }
-        return false;
+        return unidadeAdversaria instanceof OptimusPrime;
     }
 
     @Override
@@ -40,6 +37,7 @@ public class Batman extends Unidade {
                 " Mana: "+getMana()+
                 " Ataque: "+getAtaque()+
                 " cor: "+ getCor()+
+                " Defesa"+ getDefesa()+
                 " 🦇";
     }
 }

@@ -32,7 +32,6 @@ public abstract class Unidade {
     }
 
 
-
     //Metódo abstrato para verificar se a unidade Aversária possui desvantagem em relação a unidade que chamou a função
      abstract public boolean verificarvantagem(Unidade unidadeAdversaria);
 

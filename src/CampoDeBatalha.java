@@ -35,11 +35,7 @@ public class CampoDeBatalha {
     }
 
     public boolean verificarUnidade(int unidadeDeAtaque, int numeroDoJogador) {
-        if (listaDeJogadores[numeroDoJogador].getListaDeUnidades()[unidadeDeAtaque] == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return listaDeJogadores[numeroDoJogador].getListaDeUnidades()[unidadeDeAtaque] == null;
     }
 
     public void habilidaEspecial(int jogador, int unidadeDeataque) {

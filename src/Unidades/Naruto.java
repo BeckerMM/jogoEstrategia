@@ -9,10 +9,7 @@ public class Naruto extends Unidade {
     @Override
     public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
-        if (unidadeAdversaria instanceof Dragao) {
-            return true;
-        }
-        return false;
+        return unidadeAdversaria instanceof Dragao;
     }
 
     @Override
@@ -33,6 +30,7 @@ public class Naruto extends Unidade {
                 " Mana: "+getMana()+
                 " Ataque: "+getAtaque()+
                 " cor: "+ getCor()+
+                " Defesa"+ getDefesa()+
                 " 👨";
     }
 }

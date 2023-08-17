@@ -11,10 +11,7 @@ public class Dragao extends Unidade {
     @Override
    public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
-        if (unidadeAdversaria instanceof Hulk) {
-            return true;
-        }
-        return false;
+        return unidadeAdversaria instanceof Hulk;
     }
 
     @Override
@@ -36,6 +33,7 @@ public class Dragao extends Unidade {
                 " Mana: "+getMana()+
                 " Ataque: "+getAtaque()+
                 " cor: "+ getCor()+
+                " Defesa"+ getDefesa()+
                 " 🐉";
     }
 }

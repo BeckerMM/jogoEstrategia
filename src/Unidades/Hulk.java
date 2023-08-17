@@ -12,10 +12,7 @@ public class Hulk extends Unidade {
     @Override
     public boolean verificarvantagem(Unidade unidadeAdversaria) {
 
-        if (unidadeAdversaria instanceof Batman){
-            return true;
-        }
-        return false;
+        return unidadeAdversaria instanceof Batman;
     }
 
     @Override
@@ -36,6 +33,7 @@ public class Hulk extends Unidade {
                 " Mana: "+getMana()+
                 " Ataque: "+getAtaque()+
                 " cor: "+ getCor()+
+                " Defesa"+ getDefesa()+
                 " 💪";
     }
 }
