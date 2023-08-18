@@ -14,10 +14,10 @@ public class Naruto extends Unidade {
 
     @Override
     public boolean ataqueEspecial() {
-        if (this.getMana()>=5){
+        if (this.getMana()>=15){
             this.setVida(this.getVida()+5);
             this.setDefesa(this.getDefesa()+2);
-            this.setMana(this.getMana()-5);
+            this.setMana(this.getMana()-15);
             return true;
         }else {
             return false;

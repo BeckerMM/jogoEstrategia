@@ -14,24 +14,24 @@ public class OptimusPrime extends Unidade {
     }
     @Override
     public boolean ataqueEspecial() {
-        if (this.getMana() >= 10) {
+        if (this.getMana() >= 25) {
             this.setVida(this.getVida() + 10);
             this.setDefesa(this.getDefesa() + 1);
-            this.setMana(this.getMana() - 10);
+            this.setMana(this.getMana() - 25);
             return true;
-        } else {
-            return false;
         }
+            return false;
+
     }
 
     @Override
     public String toString() {
         return
                 "Life: "+ this.getVida() +
-                        " Mana: "+getMana()+
-                        " Ataque: "+getAtaque()+
-                        " cor: "+ getCor()+
-                        " Defesa"+ getDefesa()+
+                        " Mana: "+this.getMana()+
+                        " Ataque: "+this.getAtaque()+
+                        " cor: "+ this.getCor()+
+                        " Defesa"+ this.getDefesa()+
                         " 🤖";
     }
 }

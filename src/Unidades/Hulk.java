@@ -17,9 +17,9 @@ public class Hulk extends Unidade {
 
     @Override
    public boolean ataqueEspecial() {
-        if(this.getVida()>=750 && this.getMana() >=20){
+        if(this.getVida()>=750 && this.getMana() >=40){
             this.setAtaque(this.getAtaque()+5);
-            this.setMana(this.getMana()-20);
+            this.setMana(this.getMana()-40);
             return true;
         }else{
             return false;

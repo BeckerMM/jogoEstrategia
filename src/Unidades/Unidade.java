@@ -19,8 +19,8 @@ public abstract class Unidade {
     }
 
     //Implementação do metódo de ataque, onde caso a unidade Adversária tenha fraqueza em relação a unidade que chamou, a mesma irá perder 25% a mais de vida
-    public boolean atacar(Unidade unidadeAdversaria, boolean vantagem){
-        if (vantagem){
+    public boolean atacar(Unidade unidadeAdversaria){
+        if (verificarvantagem(unidadeAdversaria)){
             unidadeAdversaria.vida-=(this.ataque* 1.25);
         }else{
             if (this.ataque> unidadeAdversaria.defesa){
@@ -33,7 +33,7 @@ public abstract class Unidade {
 
 
     //Metódo abstrato para verificar se a unidade Aversária possui desvantagem em relação a unidade que chamou a função
-     abstract public boolean verificarvantagem(Unidade unidadeAdversaria);
+    abstract public boolean verificarvantagem(Unidade unidadeAdversaria);
 
     abstract public boolean ataqueEspecial();
 

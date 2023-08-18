@@ -1,6 +1,6 @@
 import Unidades.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        while (!menuInicial());
+        while (!menuInicial()) ;
 
 
     }
@@ -24,35 +24,29 @@ public class Main {
         switch (decisao) {
             case 1 -> iniciarUmaPartida();
             case 2 -> regrasDoJogo();
-            case 3 -> {
-                return logout();
-            }
+            case 3 -> System.exit(0);
             default -> System.out.println("Valor inválido!!");
         }
-
         return false;
     }
 
-    private static boolean logout() {
-        return true;
-    }
-
     private static void iniciarUmaPartida() {
-        Jogador[] listaDeJogadores = new Jogador[2];
+        ArrayList<Jogador> listaDeJogadores = new ArrayList<>();
         int decisao = 0;
 
         for (int i = 0; i < 2; i++) {
             String cor = "";
             String nome = "";
-            Unidade[] listaDeUnidades = new Unidade[3];
+            ArrayList<Unidade> listaDeUnidades = new ArrayList<>();
             System.out.println("Digite o nome do jogador " + (i + 1) + ":");
             nome = sc.next();
+
             if (i == 0) {
                 cor = "Branco";
             } else {
                 cor = "Preto";
             }
-            System.out.println("\nEscolha as unidades do jogador " + (i+1) + ":" + """
+            System.out.println("\nEscolha as unidades do jogador " + (i + 1) + ":" + """
                                         
                     1-Batman
                     2-Dragão
@@ -61,46 +55,41 @@ public class Main {
                     5-OptimusPrime """);
 
             for (int j = 0; j < 3; j++) {
-                decisao = sc.nextInt();
-                switch (decisao) {
-                    case 1 -> {
-                        Batman batman = new Batman(cor);
-                        listaDeUnidades[j] = batman;
+
+                Unidade unidade;
+                do {
+
+                    decisao = sc.nextInt();
+                    unidade = retornaUnidade(decisao, cor);
+                    if (unidade == null) {
+                        System.out.println("Valor inválido!");
                     }
-                    case 2 -> {
-                        Dragao dragao = new Dragao(cor);
-                        listaDeUnidades[j] = dragao;
-                    }
-                    case 3 -> {
-                        Hulk hulk = new Hulk(cor);
-                        listaDeUnidades[j] = hulk;
-                    }
-                    case 4 -> {
-                        Naruto naruto = new Naruto(cor);
-                        listaDeUnidades[j] = naruto;
-                    }
-                    case 5 -> {
-                        OptimusPrime optimusPrime = new OptimusPrime(cor);
-                        listaDeUnidades[j] = optimusPrime;
-                    }
-                    default ->{
-                        System.out.println("Valor inválido") ;
-                        j--;
-                    }
-                }
+                } while (unidade == null);
+                listaDeUnidades.add(unidade);
 
             }
-            System.out.println(Arrays.toString(listaDeUnidades));
+
             Jogador jogador = new Jogador(listaDeUnidades, cor, nome);
-            listaDeJogadores[i] = jogador;
+            listaDeJogadores.add(jogador);
         }
 
-        System.out.println(listaDeJogadores[0].getListaDeUnidades()[0] + " " + listaDeJogadores[1].getListaDeUnidades()[0]);
+        System.out.println(listaDeJogadores.get(0).getListaDeUnidades() + " " + listaDeJogadores.get(1).getListaDeUnidades());
         campodeBatalha = new CampoDeBatalha(listaDeJogadores);
-        campoDeBatalha(listaDeJogadores);
+        campoDeBatalha();
     }
 
-    private static void campoDeBatalha(Jogador[] listaDeJogadores) {
+    private static Unidade retornaUnidade(int decisao, String cor) {
+        return switch (decisao) {
+            case 1 -> new Batman(cor);
+            case 2 -> new Dragao(cor);
+            case 3 -> new Hulk(cor);
+            case 4 -> new Naruto(cor);
+            case 5 -> new OptimusPrime(cor);
+            default -> null;
+        };
+    }
+
+    private static void campoDeBatalha() {
         int cont = 0;
         do {
 
@@ -108,20 +97,17 @@ public class Main {
             if (cont == 0) {
                 System.out.println("\nBEM VINDOS AO CAMPO DE BATALHA!");
             }
-            if (cont % 2 == 0) {
-                acaoAtaque(1);
-            } else {
-                acaoAtaque(2);
-            }
+            acoes(campodeBatalha.getListaDeJogadores().get(cont % 2));
+
             campodeBatalha.verificarVidaDaUnidade();
             cont++;
             for (Unidade unidade : campodeBatalha.getListaDeJogadores()[0].getListaDeUnidades()) {
-             if (unidade.getMana() <= 90) {
+                if (unidade.getMana() <= 90) {
                     unidade.setMana(unidade.getMana() + 10);
                 }
             }
             for (Unidade unidade : campodeBatalha.getListaDeJogadores()[1].getListaDeUnidades()) {
-               if (unidade.getMana() <= 90) {
+                if (unidade.getMana() <= 90) {
                     unidade.setMana(unidade.getMana() + 10);
                 }
             }
@@ -130,80 +116,89 @@ public class Main {
         System.out.println("O vencedor foi o Jogador: " + campodeBatalha.getVencedor());
     }
 
-    private static void acaoAtaque(int numeroDoJogador) {
-        int unidadeDeAtaque = 0;
-        int unidadeAtacada = 0;
-        int decisao = 0;
+    private static Unidade escolherUnidade(Jogador jogador) {
+        int unidadeDeAtaque;
+        Unidade unidade;
         int contador = 0;
         do {
             if (contador != 0) {
                 System.out.println("\nEscolha outra unidade!!");
             }
-            System.out.println("Jogador " + numeroDoJogador + "\nEscolha sua unidade de ataque: ");
+            System.out.println("Escolha sua unidade de ataque:");
             unidadeDeAtaque = sc.nextInt();
-            while (unidadeDeAtaque >  3 || unidadeDeAtaque < 0){
-                System.out.println("Valor Inválido!!");
-                System.out.println("Escolha sua unidade de ataque:");
-                unidadeDeAtaque = sc.nextInt();
+            unidade = jogador.getUnidade(unidadeDeAtaque);
 
-            }
             contador++;
-        } while (campodeBatalha.verificarUnidade(unidadeDeAtaque, (numeroDoJogador - 1)));
+        } while (unidadeDeAtaque >= jogador.getListaDeUnidades().size() || unidadeDeAtaque < 0);
+        return unidade;
+    }
 
-        contador = 0;
+    private static int escolherAcao( ){
+    int contador = 0;
+    int decisao;
         do {
-            if (contador!=0){
+            if (contador != 0) {
                 System.out.println("valor Iválido!");
             }
             System.out.println("""
-                Escolha a ação:
-                1- Atacar
-                2- Habilidade Especial""");
+                    Escolha a ação:
+                    1- Atacar
+                    2- Habilidade Especial""");
             decisao = sc.nextInt();
             contador++;
-        }while(decisao>2 ||  decisao<1);
+        } while (decisao > 2 || decisao < 1);
+        return decisao;
+    }
 
+    private static void acoes(Jogador jogador) {
+
+        int unidadeAtacada = 0;
+        int decisao = escolherAcao();
 
         switch (decisao) {
-            case 1-> {
-                int adversario = 0;
-                int cont = 0;
-                if (numeroDoJogador == 1) {
-                    adversario = 1;
-                }
-                do {
-                    if (cont != 0) {
-                        System.out.println("\nEscolha outra unidade!!");
-                    }
-                    System.out.println("\nEscolha a unidade para ser atacada:");
-                    unidadeAtacada = sc.nextInt();
-                    while (unidadeAtacada > 3 || unidadeAtacada < 0) {
-                        System.out.println("Valor Inválido!!");
-                        System.out.println("Escolha a unidade para ser atacada:");
-                        unidadeAtacada = sc.nextInt();
-
-                    }
-                    cont++;
-
-                } while (campodeBatalha.verificarUnidade(unidadeAtacada, (adversario)));
-
-                if (campodeBatalha.atacar((numeroDoJogador - 1), unidadeDeAtaque, unidadeAtacada)) {
-                    System.out.println("\nAtaque realizado com sucesso!!");
-                } else {
-                    System.out.println("\nUnidade Morta!!");
-                }
-            }
-            case 2 -> {
-                if (campodeBatalha.getListaDeJogadores()[numeroDoJogador - 1].getListaDeUnidades()[unidadeDeAtaque].ataqueEspecial()) {
-                    System.out.println("\nHabilidade utilizada com sucesso!");
-                } else {
-                    System.out.println("\nMana baixa!");
-                }
-            }
+            case 1 -> acaoAtacar(jogador);
+            case 2 -> acaoEspecial(jogador, escolherUnidade(jogador));
             default -> System.out.println("\nNúmero inválido!!");
 
         }
     }
+
+    private static void acaoEspecial(Jogador jogador, Unidade unidadeDeAtaque) {
+
+        if (jogador.habilidaEspecial(unidadeDeAtaque)) {
+            System.out.println("\nHabilidade utilizada com sucesso!");
+        } else {
+            System.out.println("\nMana baixa!");
+        }
+    }
+
+    private static void acaoAtacar(Jogador jogador){
+            int cont = 0;
+
+            do {
+                if (cont != 0) {
+                    System.out.println("\nEscolha outra unidade!!");
+                }
+                System.out.println("\nEscolha a unidade para ser atacada:");
+                unidadeAtacada = sc.nextInt();
+                while (unidadeAtacada > 3 || unidadeAtacada < 0) {
+                    System.out.println("Valor Inválido!!");
+                    System.out.println("Escolha a unidade para ser atacada:");
+                    unidadeAtacada = sc.nextInt();
+
+                }
+                cont++;
+
+            } while (campodeBatalha.verificarUnidade(unidadeAtacada, (adversario)));
+
+            if (campodeBatalha.atacar((numeroDoJogador - 1), unidadeDeAtaque, unidadeAtacada)) {
+                jogador.atacar();
+                System.out.println("\nAtaque realizado com sucesso!!");
+            } else {
+                System.out.println("\nUnidade Morta!!");
+            }
+        }
+        }
 
     private static void regrasDoJogo() {
         System.out.println("""

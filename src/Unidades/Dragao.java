@@ -16,10 +16,10 @@ public class Dragao extends Unidade {
 
     @Override
     public boolean ataqueEspecial() {
-        if (this.getMana() >= 25) {
+        if (this.getMana() >= 35) {
             this.setAtaque(this.getAtaque() + 10);
             this.setDefesa(this.getDefesa() + 10);
-            this.setMana(this.getMana()-25);
+            this.setMana(this.getMana()-35);
             return true;
         }
         else{
