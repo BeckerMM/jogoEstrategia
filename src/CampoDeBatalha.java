@@ -14,10 +14,6 @@ public class CampoDeBatalha {
     }
 
 
-    public boolean verificarUnidade(int unidadeDeAtaque, int numeroDoJogador) {
-        return listaDeJogadores[numeroDoJogador].getListaDeUnidades()[unidadeDeAtaque] == null;
-    }
-
     public Jogador getJogadorAtivo(){
         return listaDeJogadores.get(rodada%2);
     }
@@ -26,36 +22,28 @@ public class CampoDeBatalha {
         return listaDeJogadores.get((rodada+1)%2);
     }
 
-
-    public Jogador verificarVencedor() {
-        int contadorJogador1 = 0;
-        int contadorJogador2 = 0;
-
-        for (Unidade unidade : listaDeJogadores[0].getListaDeUnidades()) {
-            if (unidade == null) {
-                contadorJogador1++;
+    public void proximaRodada(){
+        for (Jogador jogador : listaDeJogadores) {
+            for (Unidade unidade: jogador.getListaDeUnidades()) {
+                if ( unidade.getMana() <=95){
+                    unidade.setMana(unidade.getMana()+5);
+                }
             }
         }
-        for (Unidade unidade : listaDeJogadores[1].getListaDeUnidades()) {
-            if (unidade == null) {
-                contadorJogador2++;
-            }
-        }
-        if (contadorJogador1 == 3) {
-            vencedor = listaDeJogadores[1].getNome();
-            return listaDeJogadores[1];
-        } else if (contadorJogador2 == 3) {
-            vencedor = listaDeJogadores[0].getNome();
-            return listaDeJogadores[0];
-        } else {
-            return null;
-        }
+        rodada++;
     }
 
 
-    public ArrayList<Jogador> getListaDeJogadores() {
-        return listaDeJogadores;
+    public Boolean verificarVencedor() {
+        for (Jogador jogador : listaDeJogadores) {
+            if (jogador.getListaDeUnidades().size()== 0){
+                vencedor = jogador;
+                return true;
+            }
+        }
+        return false;
     }
+
 
     public Jogador getVencedor() {
         return vencedor;
