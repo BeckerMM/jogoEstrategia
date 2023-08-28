@@ -54,7 +54,7 @@ public class CampoDeBatalha {
         String texto = "";
         for (Jogador jogador : listaDeJogadores) {
             texto += jogador.getNome();
-            for (int i = 0; i <3 ; i++) {
+            for (int i = 0; i <jogador.getListaDeUnidades().size() ; i++) {
                 texto +="\n"+i+"- "+ jogador.getListaDeUnidades().get(i);
             }
             texto +="\n";
